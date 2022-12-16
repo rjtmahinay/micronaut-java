@@ -1,8 +1,8 @@
-package io.github.rjtmahinay;
+package com.rjtmahinay;
 
 import io.micronaut.runtime.Micronaut;
-import io.swagger.v3.oas.annotations.*;
-import io.swagger.v3.oas.annotations.info.*;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 
 @OpenAPIDefinition(
     info = @Info(
@@ -11,7 +11,10 @@ import io.swagger.v3.oas.annotations.info.*;
     )
 )
 public class Application {
+
     public static void main(String[] args) {
-        Micronaut.run(Application.class, args);
+        Micronaut.build(args)
+                .mainClass(Application.class)
+                .start();
     }
 }

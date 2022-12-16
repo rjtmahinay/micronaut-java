@@ -4,7 +4,7 @@ plugins {
 }
 
 version = "0.1"
-group = "io.github.rjtmahinay"
+group = "com.rjtmahinay"
 
 repositories {
     mavenCentral()
@@ -14,50 +14,46 @@ dependencies {
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.openapi:micronaut-openapi")
-    annotationProcessor("io.micronaut.spring:micronaut-spring-annotation")
-    annotationProcessor("io.micronaut.spring:micronaut-spring-boot-annotation")
-    annotationProcessor("io.micronaut.spring:micronaut-spring-web-annotation")
+    annotationProcessor("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-http-server")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
-    implementation("io.micronaut.data:micronaut-data-spring")
-    implementation("io.micronaut.data:micronaut-data-spring-jpa")
+    implementation("io.micronaut.reactor:micronaut-reactor")
+    implementation("io.micronaut.rxjava3:micronaut-rxjava3")
+    implementation("io.micronaut.rxjava3:micronaut-rxjava3-http-client")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("io.swagger.core.v3:swagger-annotations")
     implementation("jakarta.annotation:jakarta.annotation-api")
-    implementation("org.springframework:spring-orm")
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-web")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.h2database:h2")
-    runtimeOnly("io.micronaut.spring:micronaut-spring-boot")
-    runtimeOnly("io.micronaut.spring:micronaut-spring-web")
-    testAnnotationProcessor("io.micronaut.spring:micronaut-spring-annotation")
-    testAnnotationProcessor("io.micronaut.spring:micronaut-spring-boot-annotation")
-    testAnnotationProcessor("io.micronaut.spring:micronaut-spring-web-annotation")
     implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut.cache:micronaut-cache-caffeine")
 
 }
 
 
 application {
-    mainClass.set("io.github.rjtmahinay.Application")
+    mainClass.set("com.rjtmahinay.Application")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("17")
     targetCompatibility = JavaVersion.toVersion("17")
 }
 
-graalvmNative.toolchainDetection = false
+graalvmNative {
+    toolchainDetection = false
+}
 micronaut {
     runtime("netty")
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("io.github.rjtmahinay.*")
+        annotations("com.rjtmahinay.*")
     }
 }
+
 
 
 
