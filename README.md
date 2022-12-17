@@ -10,4 +10,10 @@
 
 - [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
 
+## Swagger via OpenAPI
+
+- Access the swagger documentation via local environment
+```
+http://localhost:<port>/swagger-ui
+```
 
