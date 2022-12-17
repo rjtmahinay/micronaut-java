@@ -3,10 +3,14 @@ package com.rjtmahinay.controller;
 import com.rjtmahinay.dto.EmployeeDto;
 import com.rjtmahinay.entity.Employee;
 import com.rjtmahinay.service.EmployeeService;
+import io.micronaut.core.async.annotation.SingleResult;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,9 +23,21 @@ public class EmployeeController {
     @Inject
     private EmployeeService employeeService;
 
+    @Operation(summary = "Gets a specific employee",
+            description = "Returns an employee with a given id",
+            responses = {
+                @ApiResponse(content
+                        = @Content(
+                            mediaType = MediaType.APPLICATION_JSON
+                        )
+                )
+            }
+
+    )
     @ExecuteOn(TaskExecutors.IO)
     @Get(uri = "/{id}", produces = MediaType.APPLICATION_JSON)
-    public Optional<Employee> getEmployee(@PathVariable Long id){
+    @SingleResult
+    public Optional<Employee> getEmployee(Long id){
         return employeeService.getEmployee(id);
     }
 
@@ -32,12 +48,14 @@ public class EmployeeController {
     }
     @ExecuteOn(TaskExecutors.IO)
     @Post(uri = "/add", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @SingleResult
     public Employee createEmployee(@Body EmployeeDto employeeDto) {
         return employeeService.addEmployee(employeeDto);
     }
 
     @ExecuteOn(TaskExecutors.IO)
     @Put(uri = "/update/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @SingleResult
     public Employee updateEmployee(@PathVariable Long id, @Body EmployeeDto employeeDto) {
         return employeeService.updateEmployee(id, employeeDto);
     }

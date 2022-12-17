@@ -1,6 +1,7 @@
 micronaut:
   application:
     name: micronaut-java
+    version: v1
   router:
     static-resources:
       swagger:
