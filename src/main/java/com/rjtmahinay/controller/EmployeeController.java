@@ -1,40 +1,52 @@
 package com.rjtmahinay.controller;
 
-import com.rjtmahinay.json.EmployeeResponse;
+import com.rjtmahinay.dto.EmployeeDto;
+import com.rjtmahinay.entity.Employee;
 import com.rjtmahinay.service.EmployeeService;
 import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.client.HttpClient;
+import io.micronaut.http.annotation.*;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import jakarta.inject.Inject;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+import lombok.extern.slf4j.Slf4j;
 
-@Controller("/v1")
+import java.util.List;
+import java.util.Optional;
+
+@Slf4j
+@Controller("/v1/employee")
 public class EmployeeController {
-    @Inject
-    private HttpClient httpClient;
     @Inject
     private EmployeeService employeeService;
 
-    @Get(uri="/data", produces = MediaType.TEXT_JSON)
-    public Mono<String> getData() {
-        return Mono.just("Example Response");
+    @ExecuteOn(TaskExecutors.IO)
+    @Get(uri = "/{id}", produces = MediaType.APPLICATION_JSON)
+    public Optional<Employee> getEmployee(@PathVariable Long id){
+        return employeeService.getEmployee(id);
     }
 
-    @Get(uri="/datalist", produces = MediaType.TEXT_JSON)
-    public Flux<String> getListOfData() {
-        return Flux.just("Example 1", "Example 2");
+    @ExecuteOn(TaskExecutors.IO)
+    @Get(produces = MediaType.APPLICATION_JSON)
+    public List<Employee> getAllEmployees() {
+        return employeeService.getAllEmployees();
+    }
+    @ExecuteOn(TaskExecutors.IO)
+    @Post(uri = "/add", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public Employee createEmployee(@Body EmployeeDto employeeDto) {
+        return employeeService.addEmployee(employeeDto);
     }
 
-    @Get(uri="/retrieveData", produces = MediaType.TEXT_JSON)
-    public Mono<String> retrieveSomeData() {
-        return Mono.from(httpClient.retrieve("http://localhost:8080/v1/data"));
+    @ExecuteOn(TaskExecutors.IO)
+    @Put(uri = "/update/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public Employee updateEmployee(@PathVariable Long id, @Body EmployeeDto employeeDto) {
+        return employeeService.updateEmployee(id, employeeDto);
     }
 
-    @Get(uri = "/display")
-    public Mono<EmployeeResponse> display() {
-        return Mono.fromSupplier(() -> employeeService.getEmployee());
-    }
+    @ExecuteOn(TaskExecutors.IO)
+    @Delete(uri = "/delete/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public void deleteEmployee(@PathVariable Long id) {
+        employeeService.deleteEmployee(id);
 
+        log.info("Employee Deleted with ID: {}", id);
+    }
 }
