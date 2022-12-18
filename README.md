@@ -1,38 +1,54 @@
-## Micronaut 3.7.2 Documentation
+# Micronaut Demonstration Project
+This is a demonstration API project using Micronaut Framework.
+## Micronaut Documentations
 
-- [User Guide](https://docs.micronaut.io/3.7.2/guide/index.html)
-- [API Reference](https://docs.micronaut.io/3.7.2/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/3.7.2/guide/configurationreference.html)
+- [User Guide](https://docs.micronaut.io/3.7.4/guide/index.html)
+- [API Reference](https://docs.micronaut.io/3.7.4/api/index.html)
+- [Configuration Reference](https://docs.micronaut.io/3.7.4/guide/configurationreference.html)
 - [Micronaut Guides](https://guides.micronaut.io/index.html)
 ---
 
 - [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
-## Feature swagger-ui documentation
 
-- [Micronaut Swagger UI documentation](https://micronaut-projects.github.io/micronaut-openapi/latest/guide/index.html)
+## How to run
+Fork the project and run locally using the command. Optionally, you can the <i>-t</i> option for live code reload.
+```
+gradlew run -t
+```
 
-- [https://swagger.io/tools/swagger-ui/](https://swagger.io/tools/swagger-ui/)
+## Swagger via OpenAPI
 
+- Access the swagger documentation via local environment
+```
+http://localhost:<port>/swagger-ui
+```
 
-## Feature jdbc-hikari documentation
+## APIs
 
-- [Micronaut Hikari JDBC Connection Pool documentation](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#jdbc)
+### Create
+```
+/v1/employee/add
+```
+### Read
+Get all employee
+```
+/v1/employee
+```
+Get a specific employee
+```
+/v1/employee/{id}
+```
+### Update
+```
+/v1/employee/update/{id}
+```
+### Delete
+```
+/v1/employee/delete/{id}
+```
 
+## Database
+H2 database is used for this demonstration project.
 
-## Feature http-client documentation
-
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
-
-
-## Feature openapi documentation
-
-- [Micronaut OpenAPI Support documentation](https://micronaut-projects.github.io/micronaut-openapi/latest/guide/index.html)
-
-- [https://www.openapis.org](https://www.openapis.org)
-
-
-## Feature spring documentation
-
-- [Micronaut Spring Framework Annotations documentation](https://micronaut-projects.github.io/micronaut-spring/latest/guide/index.html)
-
-
+## Deployment to cloud
+TODO

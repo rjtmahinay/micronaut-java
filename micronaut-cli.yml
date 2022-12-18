@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: io.github.rjtmahinay
+defaultPackage: com.rjtmahinay
 testFramework: junit
 sourceLanguage: java
 buildTool: gradle
