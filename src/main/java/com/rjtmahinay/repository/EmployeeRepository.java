@@ -1,20 +1,17 @@
+/**
+ * micronaut-java
+ * @author rjtmahinay
+ */
 package com.rjtmahinay.repository;
 
 import com.rjtmahinay.entity.Employee;
 import io.micronaut.data.annotation.Query;
 import io.micronaut.data.annotation.Repository;
-import io.micronaut.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-
-/**
- * @author rjtmahinay
- * @project micronaut-java
- * @created 12/16/2022
- */
+import io.micronaut.data.repository.reactive.ReactorCrudRepository;
+import reactor.core.publisher.Flux;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+public interface EmployeeRepository extends ReactorCrudRepository<Employee, Long> {
     @Query("SELECT e FROM Employee e")
-    List<Employee> findAllEmployee();
+    Flux<Employee> findAllEmployee();
 }

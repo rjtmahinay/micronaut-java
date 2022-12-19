@@ -1,3 +1,7 @@
+/**
+ * micronaut-java
+ * @author rjtmahinay
+ */
 package com.rjtmahinay.exception;
 
 import io.micronaut.context.annotation.Requires;

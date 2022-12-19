@@ -31,4 +31,10 @@ jpa:
         hbm2ddl:
           auto: update
         show_sql: true
-
+endpoints:
+  loggers:
+    enabled: true
+  beans:
+    enabled: true
+  routes:
+    enabled: true

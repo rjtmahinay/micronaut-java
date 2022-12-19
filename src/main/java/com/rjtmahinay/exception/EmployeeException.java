@@ -1,3 +1,7 @@
+/**
+ * micronaut-java
+ * @author rjtmahinay
+ */
 package com.rjtmahinay.exception;
 
 public class EmployeeException extends RuntimeException {

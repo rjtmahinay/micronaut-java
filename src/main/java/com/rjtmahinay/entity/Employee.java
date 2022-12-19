@@ -1,3 +1,7 @@
+/**
+ * micronaut-java
+ * @author rjtmahinay
+ */
 package com.rjtmahinay.entity;
 
 import io.micronaut.serde.annotation.Serdeable;

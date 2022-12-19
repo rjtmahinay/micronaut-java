@@ -1,3 +1,7 @@
+/**
+ * micronaut-java
+ * @author rjtmahinay
+ */
 package com.rjtmahinay.controller;
 
 import com.rjtmahinay.dto.EmployeeDto;
@@ -12,10 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
-
-import java.util.List;
-import java.util.Optional;
+import org.reactivestreams.Publisher;
 
 @Slf4j
 @Controller("/v1/employee")
@@ -34,7 +35,7 @@ public class EmployeeController {
     @ExecuteOn(TaskExecutors.IO)
     @Get(uri = "/{id}", produces = MediaType.APPLICATION_JSON)
     @SingleResult
-    public Optional<Employee> getEmployee(Long id) {
+    public Publisher<Employee> getEmployee(Long id) {
         return employeeService.getEmployee(id);
     }
 
@@ -48,7 +49,7 @@ public class EmployeeController {
     )
     @ExecuteOn(TaskExecutors.IO)
     @Get(produces = MediaType.APPLICATION_JSON)
-    public List<Employee> getAllEmployees() {
+    public Publisher<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
@@ -64,7 +65,7 @@ public class EmployeeController {
     @ExecuteOn(TaskExecutors.IO)
     @Post(uri = "/add", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     @SingleResult
-    public Employee createEmployee(@Body EmployeeDto employeeDto) {
+    public Publisher<Employee> createEmployee(@Body EmployeeDto employeeDto) {
         return employeeService.addEmployee(employeeDto);
     }
 
@@ -80,7 +81,7 @@ public class EmployeeController {
     @ExecuteOn(TaskExecutors.IO)
     @Put(uri = "/update/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     @SingleResult
-    public Employee updateEmployee(@PathVariable Long id, @Body EmployeeDto employeeDto) {
+    public Publisher<Employee> updateEmployee(@PathVariable Long id, @Body EmployeeDto employeeDto) {
         return employeeService.updateEmployee(id, employeeDto);
     }
 
@@ -95,9 +96,8 @@ public class EmployeeController {
     )
     @ExecuteOn(TaskExecutors.IO)
     @Delete(uri = "/delete/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public Mono<String> deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
-
-        return Mono.just(String.format("Employee Deleted with ID: %s", id));
+    @SingleResult
+    public Publisher<Long> deleteEmployee(@PathVariable Long id) {
+        return employeeService.deleteEmployee(id);
     }
 }

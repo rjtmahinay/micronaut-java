@@ -1,20 +1,26 @@
+/**
+ * micronaut-java
+ * @author rjtmahinay
+ */
 package com.rjtmahinay.service;
-
 
 import com.rjtmahinay.dto.EmployeeDto;
 import com.rjtmahinay.entity.Employee;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Optional;
-
+/**
+ * micronaut-java
+ * @author rjtmahinay
+ */
 public interface EmployeeService {
-    Optional<Employee> getEmployee(Long id);
+    Mono<Employee> getEmployee(Long id);
 
-    Employee addEmployee(EmployeeDto employeeDto);
+    Mono<Employee> addEmployee(EmployeeDto employeeDto);
 
-    List<Employee> getAllEmployees();
+    Flux<Employee> getAllEmployees();
 
-    Employee updateEmployee(Long id, EmployeeDto employeeDto);
+    Mono<Employee> updateEmployee(Long id, EmployeeDto employeeDto);
 
-    void deleteEmployee(Long id);
+    Mono<Long> deleteEmployee(Long id);
 }
