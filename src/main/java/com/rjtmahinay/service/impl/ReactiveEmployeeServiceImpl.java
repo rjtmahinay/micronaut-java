@@ -6,26 +6,26 @@ package com.rjtmahinay.service.impl;
 
 import com.rjtmahinay.dto.EmployeeDto;
 import com.rjtmahinay.entity.Employee;
-import com.rjtmahinay.repository.EmployeeRepository;
-import com.rjtmahinay.service.EmployeeService;
+import com.rjtmahinay.repository.ReactiveEmployeeRepository;
+import com.rjtmahinay.service.ReactiveEmployeeService;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Singleton
-public class EmployeeServiceImpl implements EmployeeService {
+public class ReactiveEmployeeServiceImpl implements ReactiveEmployeeService {
     @Inject
-    private EmployeeRepository employeeRepository;
+    private ReactiveEmployeeRepository reactiveEmployeeRepository;
 
     @Override
     public Mono<Employee> getEmployee(Long id) {
-        return employeeRepository.findById(id);
+        return reactiveEmployeeRepository.findById(id);
     }
 
     @Override
     public Flux<Employee> getAllEmployees() {
-        return employeeRepository.findAllEmployee();
+        return reactiveEmployeeRepository.findAllEmployee();
     }
 
     @Override
@@ -37,12 +37,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPosition(employeeDto.position());
         employee.setSalary(employeeDto.salary());
 
-        return employeeRepository.update(employee);
+        return reactiveEmployeeRepository.update(employee);
     }
 
     @Override
     public Mono<Long> deleteEmployee(Long id) {
-        return employeeRepository.deleteById(id);
+        return reactiveEmployeeRepository.deleteById(id);
     }
 
     @Override
@@ -53,6 +53,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPosition(employeeDto.position());
         employee.setSalary(employeeDto.salary());
 
-        return employeeRepository.save(employee);
+        return reactiveEmployeeRepository.save(employee);
     }
 }

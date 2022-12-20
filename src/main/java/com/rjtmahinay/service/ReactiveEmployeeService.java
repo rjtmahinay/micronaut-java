@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
  * micronaut-java
  * @author rjtmahinay
  */
-public interface EmployeeService {
+public interface ReactiveEmployeeService {
     Mono<Employee> getEmployee(Long id);
 
     Mono<Employee> addEmployee(EmployeeDto employeeDto);

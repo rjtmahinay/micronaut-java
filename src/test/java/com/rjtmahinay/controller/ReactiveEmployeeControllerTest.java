@@ -22,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @MicronautTest
 @Slf4j
-public class EmployeeControllerTest {
+public class ReactiveEmployeeControllerTest {
     @Inject
-    private EmployeeController employeeController;
+    private ReactiveEmployeeController reactiveEmployeeController;
 
-    @Client("/v1/employee")
+    @Client("/v1/employee/reactive")
     @Inject
     private HttpClient httpClient;
 

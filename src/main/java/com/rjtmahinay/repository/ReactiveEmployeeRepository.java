@@ -11,7 +11,7 @@ import io.micronaut.data.repository.reactive.ReactorCrudRepository;
 import reactor.core.publisher.Flux;
 
 @Repository
-public interface EmployeeRepository extends ReactorCrudRepository<Employee, Long> {
+public interface ReactiveEmployeeRepository extends ReactorCrudRepository<Employee, Long> {
     @Query("SELECT e FROM Employee e")
     Flux<Employee> findAllEmployee();
 }

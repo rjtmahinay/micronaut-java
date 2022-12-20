@@ -6,7 +6,7 @@ package com.rjtmahinay.controller;
 
 import com.rjtmahinay.dto.EmployeeDto;
 import com.rjtmahinay.entity.Employee;
-import com.rjtmahinay.service.EmployeeService;
+import com.rjtmahinay.service.SynchronousEmployeeService;
 import io.micronaut.core.async.annotation.SingleResult;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
@@ -16,13 +16,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import org.reactivestreams.Publisher;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
-@Controller("/v1/employee")
-public class EmployeeController {
+@Controller("/v1/employee/synchronous")
+public class SynchronousEmployeeController {
     @Inject
-    private EmployeeService employeeService;
+    private SynchronousEmployeeService employeeService;
 
     @Operation(summary = "Gets a specific employee", description = "Returns an employee with a given id",
             responses = {
@@ -35,7 +37,7 @@ public class EmployeeController {
     @ExecuteOn(TaskExecutors.IO)
     @Get(uri = "/{id}", produces = MediaType.APPLICATION_JSON)
     @SingleResult
-    public Publisher<Employee> getEmployee(Long id) {
+    public Optional<Employee> getEmployee(Long id) {
         return employeeService.getEmployee(id);
     }
 
@@ -49,7 +51,7 @@ public class EmployeeController {
     )
     @ExecuteOn(TaskExecutors.IO)
     @Get(produces = MediaType.APPLICATION_JSON)
-    public Publisher<Employee> getAllEmployees() {
+    public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
@@ -65,7 +67,7 @@ public class EmployeeController {
     @ExecuteOn(TaskExecutors.IO)
     @Post(uri = "/add", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     @SingleResult
-    public Publisher<Employee> createEmployee(@Body EmployeeDto employeeDto) {
+    public Employee createEmployee(@Body EmployeeDto employeeDto) {
         return employeeService.addEmployee(employeeDto);
     }
 
@@ -81,7 +83,7 @@ public class EmployeeController {
     @ExecuteOn(TaskExecutors.IO)
     @Put(uri = "/update/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     @SingleResult
-    public Publisher<Employee> updateEmployee(@PathVariable Long id, @Body EmployeeDto employeeDto) {
+    public Employee updateEmployee(@PathVariable Long id, @Body EmployeeDto employeeDto) {
         return employeeService.updateEmployee(id, employeeDto);
     }
 
@@ -96,8 +98,7 @@ public class EmployeeController {
     )
     @ExecuteOn(TaskExecutors.IO)
     @Delete(uri = "/delete/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    @SingleResult
-    public Publisher<Long> deleteEmployee(@PathVariable Long id) {
-        return employeeService.deleteEmployee(id);
+    public void deleteEmployee(@PathVariable Long id) {
+        employeeService.deleteEmployee(id);
     }
 }
