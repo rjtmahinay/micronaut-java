@@ -11,38 +11,24 @@
  * @author rjtmahinay
  * 2022
  */
-package com.rjtmahinay.entity;
+package com.rjtmahinay.service;
 
-import io.micronaut.serde.annotation.Serdeable;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
-import java.math.BigDecimal;
+import com.rjtmahinay.dto.EmployeeDto;
+import com.rjtmahinay.entity.Employee;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
- * an Employee entity representing the database structure for object relational mapping.
+ * Expose reactive components for the Demo API.
  */
-@Serdeable
-@Setter
-@Getter
-@Entity
-@Table(name = "EMPLOYEE")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false, insertable = false, updatable = false)
-    private Long id;
+public interface ReactiveEmployeeService {
+    Mono<Employee> getEmployee(Long id);
 
-    @Column(name = "NAME")
-    private String name;
+    Mono<Employee> addEmployee(EmployeeDto employeeDto);
 
-    @Column(name = "ADDRESS")
-    private String address;
+    Flux<Employee> getAllEmployees();
 
-    @Column(name = "POSITION")
-    private String position;
+    Mono<Employee> updateEmployee(Long id, EmployeeDto employeeDto);
 
-    @Column(name = "SALARY")
-    private BigDecimal salary;
+    Mono<Long> deleteEmployee(Long id);
 }

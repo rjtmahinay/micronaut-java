@@ -10,8 +10,13 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+    versioning:
+      header:
+        enabled: true
+
   server:
     port: 9092
+
 datasources:
   default:
     url: jdbc:h2:mem:localdb;DB_CLOSE_DELAY=-1
@@ -20,10 +25,12 @@ datasources:
     dialect: H2
     schema-generate: CREATE_DROP
     username: sa
+
 netty:
   default:
     allocator:
       max-order: 3
+
 jpa:
   default:
     properties:
@@ -31,4 +38,18 @@ jpa:
         hbm2ddl:
           auto: update
         show_sql: true
+    entity-scan:
+      packages: com.rjtmahinay.entity
+      enabled: true
+
+endpoints:
+  loggers:
+    enabled: true
+  beans:
+    enabled: true
+  routes:
+    enabled: true
+
+example:
+  value: test
 

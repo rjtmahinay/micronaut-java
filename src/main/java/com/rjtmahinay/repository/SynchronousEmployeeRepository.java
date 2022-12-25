@@ -11,38 +11,21 @@
  * @author rjtmahinay
  * 2022
  */
-package com.rjtmahinay.entity;
+package com.rjtmahinay.repository;
 
-import io.micronaut.serde.annotation.Serdeable;
-import lombok.Getter;
-import lombok.Setter;
+import com.rjtmahinay.entity.Employee;
+import io.micronaut.data.annotation.Query;
+import io.micronaut.data.annotation.Repository;
+import io.micronaut.data.jpa.repository.JpaRepository;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
+import java.util.List;
 
 /**
- * an Employee entity representing the database structure for object relational mapping.
+ * Contains synchronous database queries.
  */
-@Serdeable
-@Setter
-@Getter
-@Entity
-@Table(name = "EMPLOYEE")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false, insertable = false, updatable = false)
-    private Long id;
+@Repository
+public interface SynchronousEmployeeRepository extends JpaRepository<Employee, Long> {
 
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name = "ADDRESS")
-    private String address;
-
-    @Column(name = "POSITION")
-    private String position;
-
-    @Column(name = "SALARY")
-    private BigDecimal salary;
+    @Query("SELECT e FROM Employee e")
+    List<Employee> findAllEmployee();
 }

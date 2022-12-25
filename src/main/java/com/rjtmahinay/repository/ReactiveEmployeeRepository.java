@@ -11,38 +11,19 @@
  * @author rjtmahinay
  * 2022
  */
-package com.rjtmahinay.entity;
+package com.rjtmahinay.repository;
 
-import io.micronaut.serde.annotation.Serdeable;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.*;
-import java.math.BigDecimal;
+import com.rjtmahinay.entity.Employee;
+import io.micronaut.data.annotation.Query;
+import io.micronaut.data.annotation.Repository;
+import io.micronaut.data.repository.reactive.ReactorCrudRepository;
+import reactor.core.publisher.Flux;
 
 /**
- * an Employee entity representing the database structure for object relational mapping.
+ * Contains reactive database queries.
  */
-@Serdeable
-@Setter
-@Getter
-@Entity
-@Table(name = "EMPLOYEE")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false, insertable = false, updatable = false)
-    private Long id;
-
-    @Column(name = "NAME")
-    private String name;
-
-    @Column(name = "ADDRESS")
-    private String address;
-
-    @Column(name = "POSITION")
-    private String position;
-
-    @Column(name = "SALARY")
-    private BigDecimal salary;
+@Repository
+public interface ReactiveEmployeeRepository extends ReactorCrudRepository<Employee, Long> {
+    @Query("SELECT e FROM Employee e")
+    Flux<Employee> findAllEmployee();
 }

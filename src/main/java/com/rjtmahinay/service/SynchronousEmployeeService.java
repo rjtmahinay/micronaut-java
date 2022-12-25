@@ -11,38 +11,25 @@
  * @author rjtmahinay
  * 2022
  */
-package com.rjtmahinay.entity;
+package com.rjtmahinay.service;
 
-import io.micronaut.serde.annotation.Serdeable;
-import lombok.Getter;
-import lombok.Setter;
+import com.rjtmahinay.dto.EmployeeDto;
+import com.rjtmahinay.entity.Employee;
 
-import javax.persistence.*;
-import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 /**
- * an Employee entity representing the database structure for object relational mapping.
+ * Expose synchronous components for the Demo API.
  */
-@Serdeable
-@Setter
-@Getter
-@Entity
-@Table(name = "EMPLOYEE")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", nullable = false, insertable = false, updatable = false)
-    private Long id;
+public interface SynchronousEmployeeService {
+    Optional<Employee> getEmployee(Long id);
 
-    @Column(name = "NAME")
-    private String name;
+    Employee addEmployee(EmployeeDto employeeDto);
 
-    @Column(name = "ADDRESS")
-    private String address;
+    List<Employee> getAllEmployees();
 
-    @Column(name = "POSITION")
-    private String position;
+    Employee updateEmployee(Long id, EmployeeDto employeeDto);
 
-    @Column(name = "SALARY")
-    private BigDecimal salary;
+    void deleteEmployee(Long id);
 }
