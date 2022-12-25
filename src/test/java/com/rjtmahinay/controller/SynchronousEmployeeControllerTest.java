@@ -29,16 +29,16 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Test class of {@link ReactiveEmployeeController}
+ * Test class of {@link SynchronousEmployeeController}
  */
 @MicronautTest
 @Slf4j
-public class ReactiveEmployeeControllerTest {
+public class SynchronousEmployeeControllerTest {
 
-    @Client("/v1/reactive/employee")
+    @Client("/v1/synchronous/employee")
     @Inject
     private HttpClient httpClient;
 
@@ -95,7 +95,7 @@ public class ReactiveEmployeeControllerTest {
     void returnDeletedCount() {
         String result = httpClient.toBlocking().retrieve(HttpRequest.DELETE("/delete/4"));
 
-        assertEquals(1, Long.valueOf(result));
+        assertEquals("Successfully deleted", result);
     }
 
     private EmployeeDto mockEmployeeDto1() {

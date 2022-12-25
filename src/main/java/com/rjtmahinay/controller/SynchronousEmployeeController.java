@@ -113,8 +113,9 @@ public class SynchronousEmployeeController {
             }
     )
     @Delete(uri = "/delete/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public void deleteEmployee(@PathVariable Long id) {
+    public String deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
+        return "Successfully deleted";
     }
 
     @Operation(summary = "Throws a sample exception",
