@@ -7,6 +7,8 @@ This is a demonstration API project using Micronaut Framework.
 Micronaut is a full-stack framework for building microservice and serverless applications. It leverages the use of
 compile-time inversion of control that results to quick start-up and low memory footprint.
 
+This project demonstrates the CRUD operation using the framework and some Unit testing.
+
 ## How to run
 ### Fork the project and run locally using the commands.
 
@@ -25,7 +27,7 @@ gradlew run -t
 ```
 
 ### Docker Desktop
-Run the application using docker
+##### Run the application using docker
 
 Pull the image from Docker Hub
 ```
