@@ -9,6 +9,17 @@ compile-time inversion of control that results to quick start-up and low memory 
 
 This project demonstrates the CRUD operation using the framework and some Unit testing.
 
+### Micronaut Main Entry Class
+```java
+public class Application {
+
+    public static void main(String[] args) {
+        Micronaut.build(args)
+                .mainClass(Application.class)
+                .start();
+    }
+}
+```
 ## How to run
 ### Fork the project and run locally using the commands.
 

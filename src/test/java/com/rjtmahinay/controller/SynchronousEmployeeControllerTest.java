@@ -14,6 +14,7 @@
 package com.rjtmahinay.controller;
 
 import com.rjtmahinay.dto.EmployeeDto;
+import io.micronaut.context.annotation.Property;
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.client.HttpClient;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Test class of {@link SynchronousEmployeeController}
  */
 @MicronautTest
+@Property(name = "datasources.default.url", value = "jdbc:h2:mem:synchronousdb;DB_CLOSE_DELAY=-1")
 public class SynchronousEmployeeControllerTest {
 
     @Client("/v1/synchronous/employee")
