@@ -14,6 +14,7 @@
 package com.rjtmahinay.controller;
 
 import com.rjtmahinay.dto.EmployeeDto;
+import io.micronaut.context.annotation.Property;
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.client.HttpClient;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Test class of {@link ReactiveEmployeeController}
  */
 @MicronautTest
+@Property(name = "datasources.default.url", value = "jdbc:h2:mem:reactivedb;DB_CLOSE_DELAY=-1")
 public class ReactiveEmployeeControllerTest {
 
     @Client("/v1/reactive/employee")

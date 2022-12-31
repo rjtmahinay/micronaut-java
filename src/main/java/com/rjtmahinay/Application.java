@@ -37,7 +37,7 @@ import io.swagger.v3.oas.annotations.info.License;
             )
     )
 )
-public class Application extends Micronaut {
+public class Application {
 
     public static void main(String[] args) {
         Micronaut.build(args)
