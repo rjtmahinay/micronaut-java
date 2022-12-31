@@ -8,9 +8,33 @@ Micronaut is a full-stack framework for building microservice and serverless app
 compile-time inversion of control that results to quick start-up and low memory footprint.
 
 ## How to run
-Fork the project and run locally using the command. Optionally, you can the <i>-t</i> option for live code reload.
+### Fork the project and run locally using the commands.
+
+Build the jar
+```
+gradlew shadowJar
+```
+Run the jar from the libs folder
+```
+java -jar micronaut-java-0.1-all.jar 
+```
+
+Run using Gradle. Optionally, you can put <i>-t</i> option for live code reload.
 ```
 gradlew run -t
+```
+
+### Docker Desktop
+Run the application using docker
+
+Pull the image from Docker Hub
+```
+docker pull rjtmahinay/micronaut-java
+```
+
+Run the container using the image
+```
+docker run -d -p <port>:8080 --name <your container name> rjtmahinay/micronaut-java
 ```
 
 ## Swagger via OpenAPI

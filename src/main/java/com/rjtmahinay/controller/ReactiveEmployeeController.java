@@ -17,12 +17,15 @@ import com.rjtmahinay.dto.EmployeeDto;
 import com.rjtmahinay.entity.Employee;
 import com.rjtmahinay.exception.EmployeeException;
 import com.rjtmahinay.service.ReactiveEmployeeService;
+import io.micronaut.cache.annotation.CacheInvalidate;
+import io.micronaut.cache.annotation.CachePut;
+import io.micronaut.cache.annotation.Cacheable;
 import io.micronaut.core.async.annotation.SingleResult;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.*;
 import io.micronaut.http.annotation.Error;
+import io.micronaut.http.annotation.*;
 import io.micronaut.http.hateoas.JsonError;
 import io.micronaut.http.hateoas.Link;
 import io.micronaut.scheduling.TaskExecutors;
@@ -30,7 +33,6 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.inject.Inject;
-import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 
 import javax.validation.Valid;
@@ -38,7 +40,6 @@ import javax.validation.Valid;
 /**
  * Consist of reactive APIs for demonstration.
  */
-@Slf4j
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/v1/reactive/employee")
 public class ReactiveEmployeeController {
@@ -54,6 +55,7 @@ public class ReactiveEmployeeController {
             }
     )
     @Get(uri = "/{id}", produces = MediaType.APPLICATION_JSON)
+    @Cacheable("reactive-employee")
     @SingleResult
     public Publisher<Employee> getEmployee(Long id) {
         return employeeService.getEmployee(id);
@@ -68,6 +70,7 @@ public class ReactiveEmployeeController {
             }
     )
     @Get(produces = MediaType.APPLICATION_JSON)
+    @CachePut("reactive-employee")
     public Publisher<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
@@ -83,6 +86,7 @@ public class ReactiveEmployeeController {
     )
 
     @Post(uri = "/add", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @CacheInvalidate("reactive-employee")
     @SingleResult
     public Publisher<Employee> createEmployee(@Body @Valid EmployeeDto employeeDto) {
         return employeeService.addEmployee(employeeDto);
@@ -98,6 +102,7 @@ public class ReactiveEmployeeController {
             }
     )
     @Put(uri = "/update/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @CacheInvalidate("reactive-employee")
     @SingleResult
     public Publisher<Employee> updateEmployee(@PathVariable Long id, @Body @Valid EmployeeDto employeeDto) {
         return employeeService.updateEmployee(id, employeeDto);
@@ -113,6 +118,7 @@ public class ReactiveEmployeeController {
             }
     )
     @Delete(uri = "/delete/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    @CacheInvalidate("reactive-employee")
     @SingleResult
     public Publisher<Long> deleteEmployee(@PathVariable Long id) {
         return employeeService.deleteEmployee(id);
@@ -128,6 +134,7 @@ public class ReactiveEmployeeController {
             }
     )
     @Get(uri = "/exception", produces = MediaType.APPLICATION_JSON)
+    @SingleResult
     public Publisher<EmployeeException> exception() {
         throw new EmployeeException("Employee exception");
     }

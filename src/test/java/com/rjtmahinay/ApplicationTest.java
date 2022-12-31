@@ -15,11 +15,13 @@ package com.rjtmahinay;
 
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
+/**
+ * Test class of {@link Application}
+ */
 @MicronautTest
 class ApplicationTest {
 
@@ -27,7 +29,7 @@ class ApplicationTest {
     EmbeddedApplication<?> application;
 
     @Test
-    void testItWorks() {
+    void applicationRunning() {
         Assertions.assertTrue(application.isRunning());
     }
 
