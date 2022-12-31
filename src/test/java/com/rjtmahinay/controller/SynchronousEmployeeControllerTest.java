@@ -33,12 +33,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * Test class of {@link ReactiveEmployeeController}
+ * Test class of {@link SynchronousEmployeeController}
  */
 @MicronautTest
-public class ReactiveEmployeeControllerTest {
+public class SynchronousEmployeeControllerTest {
 
-    @Client("/v1/reactive/employee")
+    @Client("/v1/synchronous/employee")
     @Inject
     private HttpClient httpClient;
 
@@ -83,7 +83,7 @@ public class ReactiveEmployeeControllerTest {
     @Test
     void returnUpdatedEmployee() throws IOException {
         EmployeeDto employeeDto = new EmployeeDto("testUpdatedName", "testAddress2",
-                "testPosition2", BigDecimal.valueOf(2.0));
+                "testPostion2", BigDecimal.valueOf(2.0));
         String result = httpClient.toBlocking().retrieve(HttpRequest.PUT("/update/2", employeeDto));
 
         EmployeeDto actualEmployeeDto = objectMapper.readValue(result, EmployeeDto.class);
@@ -95,7 +95,7 @@ public class ReactiveEmployeeControllerTest {
     void returnDeletedCount() {
         String result = httpClient.toBlocking().retrieve(HttpRequest.DELETE("/delete/3"));
 
-        assertEquals(1, Long.valueOf(result));
+        assertEquals("Successfully deleted", result);
     }
 
     @Test

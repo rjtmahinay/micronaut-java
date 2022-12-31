@@ -17,12 +17,14 @@ import com.rjtmahinay.dto.EmployeeDto;
 import com.rjtmahinay.entity.Employee;
 import com.rjtmahinay.exception.EmployeeException;
 import com.rjtmahinay.service.SynchronousEmployeeService;
-import io.micronaut.core.async.annotation.SingleResult;
+import io.micronaut.cache.annotation.CacheInvalidate;
+import io.micronaut.cache.annotation.CachePut;
+import io.micronaut.cache.annotation.Cacheable;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.*;
 import io.micronaut.http.annotation.Error;
+import io.micronaut.http.annotation.*;
 import io.micronaut.http.hateoas.JsonError;
 import io.micronaut.http.hateoas.Link;
 import io.micronaut.scheduling.TaskExecutors;
@@ -30,7 +32,6 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.inject.Inject;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -39,7 +40,6 @@ import java.util.Optional;
 /**
  * Consist of synchronous APIs for demonstration.
  */
-@Slf4j
 @ExecuteOn(TaskExecutors.IO)
 @Controller("/v1/synchronous/employee")
 public class SynchronousEmployeeController {
@@ -55,7 +55,7 @@ public class SynchronousEmployeeController {
             }
     )
     @Get(uri = "/{id}", produces = MediaType.APPLICATION_JSON)
-    @SingleResult
+    @Cacheable("synchronous-employee")
     public Optional<Employee> getEmployee(Long id) {
         return employeeService.getEmployee(id);
     }
@@ -69,6 +69,7 @@ public class SynchronousEmployeeController {
             }
     )
     @Get(produces = MediaType.APPLICATION_JSON)
+    @CachePut("synchronous-employee")
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
@@ -83,7 +84,7 @@ public class SynchronousEmployeeController {
             }
     )
     @Post(uri = "/add", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    @SingleResult
+    @CacheInvalidate("synchronous-employee")
     public Employee createEmployee(@Body @Valid EmployeeDto employeeDto) {
         return employeeService.addEmployee(employeeDto);
     }
@@ -98,7 +99,7 @@ public class SynchronousEmployeeController {
             }
     )
     @Put(uri = "/update/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    @SingleResult
+    @CacheInvalidate("synchronous-employee")
     public Employee updateEmployee(@PathVariable Long id, @Body @Valid EmployeeDto employeeDto) {
         return employeeService.updateEmployee(id, employeeDto);
     }
@@ -113,8 +114,10 @@ public class SynchronousEmployeeController {
             }
     )
     @Delete(uri = "/delete/{id}", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public void deleteEmployee(@PathVariable Long id) {
+    @CacheInvalidate("synchronous-employee")
+    public String deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
+        return "Successfully deleted";
     }
 
     @Operation(summary = "Throws a sample exception",
