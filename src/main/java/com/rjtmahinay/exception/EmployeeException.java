@@ -13,12 +13,16 @@
  */
 package com.rjtmahinay.exception;
 
+/**
+ * Exception for the API.
+ */
 public class EmployeeException extends RuntimeException {
+
+    /**
+     * Constructor of the exception.
+     * @param message The custom exception mesage
+     */
     public EmployeeException(String message) {
         super(message);
-    }
-
-    public EmployeeException(String message, Throwable cause) {
-        super(message, cause);
     }
 }

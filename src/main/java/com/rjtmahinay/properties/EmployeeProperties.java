@@ -16,6 +16,9 @@ package com.rjtmahinay.properties;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
 
+/**
+ * Custom properties of the API.
+ */
 @ConfigurationProperties("example")
 public class EmployeeProperties {
     private String value;
