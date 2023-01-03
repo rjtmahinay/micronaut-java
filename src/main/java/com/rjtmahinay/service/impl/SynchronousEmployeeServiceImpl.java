@@ -43,7 +43,7 @@ public class SynchronousEmployeeServiceImpl implements SynchronousEmployeeServic
 
     @Override
     public Employee updateEmployee(Long id, EmployeeDto employeeDto) {
-        Employee employee = new Employee();
+        var employee = new Employee();
         employee.setId(id);
         employee.setName(employeeDto.name());
         employee.setAddress(employeeDto.address());
@@ -60,7 +60,7 @@ public class SynchronousEmployeeServiceImpl implements SynchronousEmployeeServic
 
     @Override
     public Employee addEmployee(EmployeeDto employeeDto) {
-        Employee employee = new Employee();
+        var employee = new Employee();
         employee.setName(employeeDto.name());
         employee.setAddress(employeeDto.address());
         employee.setPosition(employeeDto.position());

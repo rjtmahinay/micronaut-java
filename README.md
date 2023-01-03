@@ -29,7 +29,7 @@ gradlew shadowJar
 ```
 Run the jar from the libs folder
 ```
-java -jar micronaut-java-0.1-all.jar 
+java -jar micronaut-java-1.0-all.jar 
 ```
 
 Run using Gradle. Optionally, you can put <i>-t</i> option for live code reload.

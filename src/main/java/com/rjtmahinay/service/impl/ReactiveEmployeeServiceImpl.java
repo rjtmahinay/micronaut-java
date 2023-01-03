@@ -42,7 +42,7 @@ public class ReactiveEmployeeServiceImpl implements ReactiveEmployeeService {
 
     @Override
     public Mono<Employee> updateEmployee(Long id, EmployeeDto employeeDto) {
-        Employee employee = new Employee();
+        var employee = new Employee();
         employee.setId(id);
         employee.setName(employeeDto.name());
         employee.setAddress(employeeDto.address());
@@ -59,7 +59,7 @@ public class ReactiveEmployeeServiceImpl implements ReactiveEmployeeService {
 
     @Override
     public Mono<Employee> addEmployee(EmployeeDto employeeDto) {
-        Employee employee = new Employee();
+        var employee = new Employee();
         employee.setName(employeeDto.name());
         employee.setAddress(employeeDto.address());
         employee.setPosition(employeeDto.position());
