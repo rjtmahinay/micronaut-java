@@ -34,11 +34,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Download artifact
-        uses: actions/download-artifact@v3.0.2
-        with:
-          name: artifact
-          path: temp
       - name: Build the Docker image
         run:  ./gradlew dockerBuildNative
       - name: Push Docker Image
