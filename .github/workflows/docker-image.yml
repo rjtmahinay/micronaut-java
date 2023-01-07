@@ -20,7 +20,7 @@ jobs:
           distribution: 'adopt'
       - uses: gradle/gradle-build-action@v2.3.3
         with:
-          arguments: build
+          arguments: build dockerfileNative
       - uses: actions/upload-artifact@v3.1.2
         with:
           name: artifact
