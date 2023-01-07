@@ -35,6 +35,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build the Docker image
-        run:  ./gradlew dockerBuildNative
+        run:  gradlew dockerBuildNative
       - name: Push Docker Image
-        run: ./gradlew dockerPushNative
+        run: gradlew dockerPushNative
