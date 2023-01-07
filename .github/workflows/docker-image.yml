@@ -22,12 +22,7 @@ jobs:
       - name: Build Micronaut
         uses: gradle/gradle-build-action@v2.3.3
         with:
-          arguments: build dockerfileNative
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: artifact
-          path: build/docker/native-main/DockerfileNative
+          arguments: build
   deployment:
     needs: build
     environment:
@@ -45,7 +40,6 @@ jobs:
           name: artifact
           path: temp
       - name: Build the Docker image
-        uses: docker/build-push-action@v3.2.0
-        with:
-          file: /home/runner/work/micronaut-java/micronaut-java/temp/DockerfileNative
-          tags: rjtmahinay/micronaut-java:latest
+        run:  ./gradlew dockerBuildNative
+      - name: Push Docker Image
+        run: ./gradlew dockerPushNative
