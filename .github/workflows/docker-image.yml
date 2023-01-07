@@ -24,7 +24,7 @@ jobs:
       - uses: actions/upload-artifact@v3.1.2
         with:
           name: artifact
-          path: build/docker/native-man/DockerfileNative
+          path: build/docker/native-main/DockerfileNative
   deployment:
     needs: build
     environment:
