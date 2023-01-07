@@ -20,11 +20,11 @@ jobs:
           java-version: 17
           distribution: 'adopt'
       - name: Build Micronaut
-      - uses: gradle/gradle-build-action@v2.3.3
+        uses: gradle/gradle-build-action@v2.3.3
         with:
           arguments: build dockerfileNative
       - name: Upload artifact
-      - uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: artifact
           path: build/docker/native-main/DockerfileNative
