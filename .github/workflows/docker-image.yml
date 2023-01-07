@@ -26,6 +26,7 @@ jobs:
           name: artifact
           path: /build/
   deployment:
+    needs: build
     environment:
       name: production
     runs-on: ubuntu-latest
