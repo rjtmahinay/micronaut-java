@@ -1,5 +1,7 @@
 # Micronaut Demonstration Project
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![](https://img.shields.io/badge/java--version-Java%2017-blue)
+[![micronaut-java CI](https://github.com/rjtmahinay/micronaut-java/actions/workflows/workflow.yml/badge.svg?branch=master)](https://github.com/rjtmahinay/micronaut-java/actions/workflows/workflow.yml)
 
 This is a demonstration API project using Micronaut Framework.
 
