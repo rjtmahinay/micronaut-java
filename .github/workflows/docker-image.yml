@@ -34,6 +34,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and Push Image
-        uses: actions/checkout@v3.3.0
-        run: gradlew dockerBuildNative dockerPushNative
+      - name: Build and Push Image using Gradle
+        uses: gradle/gradle-build-action@v2.3.3
+        with:
+          arguments: dockerBuildNative dockerPushNative
