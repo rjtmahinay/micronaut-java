@@ -65,6 +65,14 @@ micronaut {
     }
 }
 
+tasks.named("dockerBuild") {
+    images = ["rjtmahinay/${project.name}:$project.version"]
+}
+
+tasks.named("dockerBuildNative") {
+    images = ["rjtmahinay/${project.name}:$project.version"]
+}
+
 
 
 
